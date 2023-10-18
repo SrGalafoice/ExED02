@@ -1,0 +1,77 @@
+package controller;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class Hash2 {
+    Scanner leia = new Scanner(System.in);
+    public static void inserirNome(HashMap<Integer, String> tabela,int tantodeNome) {
+        String nome;
+        Scanner leia = new Scanner(System.in);
+        int i,id;
+        for(i = 1;i <= tantodeNome;i++) {
+            System.out.println("Novo nome:");
+            nome = leia.next();
+            id = QuantidadeLetra(nome);
+            if(!tabela.containsKey(id)) {
+                tabela.put(id,nome);
+            }else {
+                while(tabela.containsKey(id)) {
+                    id++;
+                }
+                tabela.put(id, nome);
+            }
+        }
+    }
+    public void inserirnovoNome(HashMap<Integer, String> tabela) {
+        String opcao = "s";
+        while(opcao.equals("s")|opcao.equals("S")) {
+           inserirNome(tabela, 1);
+            System.out.println("Deseja inserir outro nome? S/N");
+            opcao = leia.next();
+        }
+    }
+
+
+    public String pesquisarNome(HashMap<Integer, String> tabela) {
+        System.out.println("Nome para pesquisar: ");
+        String nome = leia.next();
+        if(tabela.containsValue(nome)) {
+            return "Dado existente";
+        }else {
+            return "Dado inexistente";
+        }
+
+    }
+
+    public void remover(HashMap<Integer, String> tabela) {
+            System.out.println("Nome que deseja remover:");
+            String nome = leia.next();
+            if(tabela.containsValue(nome)) {
+                int key = QuantidadeLetra(nome);
+                String valor = tabela.get(key);
+                while(!valor.equals(nome)) {
+                    key++;
+                    valor = tabela.get(key);
+                }
+                tabela.remove(key);
+            }else {
+                System.out.println("Nao tem esse nome na tabela");
+            }
+        }
+
+    public String verificar(HashMap<Integer, String> tabela, int tamanhoOriginal) {
+        int tamanhoTabela = tabela.size();
+        if(tamanhoTabela >= tamanhoOriginal) return "A tabela esta cheia!";
+        else return "A tabela nao esta cheia!";
+    }
+
+    public void imprimir(HashMap<Integer, String> tabela) {
+        System.out.println(tabela);
+    }
+    public static int QuantidadeLetra(String str) {
+        str.toCharArray();
+        return str.length();
+    }
+}
